@@ -14,7 +14,35 @@ learning workspace at `relay/`.
 
 ## Local development
 
-Setup instructions will be added with the first runnable API slice.
+From this directory, install the locked project dependencies:
+
+```sh
+uv sync
+```
+
+Run the tests:
+
+```sh
+uv run pytest -q
+```
+
+Start the development server:
+
+```sh
+uv run uvicorn relay_api.main:app --reload
+```
+
+The health endpoint is available at <http://127.0.0.1:8000/health>.
+
+## Current API slice
+
+- `POST /tickets` validates a title and optional priority (default `3`), then
+  returns a server-generated UUID and timezone-aware creation timestamp.
+- `GET /tickets` returns tickets created since the application started.
+
+Ticket data is currently held in application memory and is lost on restart.
+Persistence, tenant ownership, authentication, and idempotency are later
+milestones.
 
 ## Project milestones
 
